@@ -113,5 +113,3 @@ pip install networkx==2.4
 
 ## License
 This project uses a GNU General Public License v3. For more information, please look at the LICENSE file in this repository.
-
-[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/apiMatthewKing2=anuraghazra)](https://github.com/anuraghazra/github-readme-stats)

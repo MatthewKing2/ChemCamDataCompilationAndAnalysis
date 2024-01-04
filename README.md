@@ -2,7 +2,7 @@
 ## Overview
 
 ### Introduction
-This repository consists of two Python programs that intake [directories of data](https://pds-geosciences.wustl.edu/msl/msl-m-chemcam-libs-4_5-rdr-v1/mslccm_1xxx/data/) produced by [NASA's Curiosity Rover ChemCam instrument](https://mars.nasa.gov/msl/spacecraft/instruments/chemcam/) and compiles all relevant information into CSV files that can be given to [The Sequencer](http://sequencer.org/documentation) so that patterns may be identified.
+This repository consists of two Python programs that intake [directories of data](https://pds-geosciences.wustl.edu/msl/msl-m-chemcam-libs-4_5-rdr-v1/mslccm_1xxx/data/) produced by [NASA's Curiosity Rover ChemCam instrument](https://mars.nasa.gov/msl/spacecraft/instruments/chemcam/) and compiles all relevant information into CSV files that can be given to [The Sequencer](http://sequencer.org/documentation) so that patterns may be identified. Also included is two Jupyter Notebooks that show examples of how this data can be sequenced, and a research paper that outlines some of the patterns that were identified through this work.
 
 NASA's ChemCam tool consists of a laser, camera, and spectrogram that  work together to identify the chemical and mineral composition of rocks and soil on Mars. The Sequencer is an algorithm designed to automatically find patterns in datasets. It does this by reordering the dataset to produce the most elongated manifold describing the database's similarities.
 
@@ -11,10 +11,14 @@ Each time ChemCam's laser vaporizes a rock surface, light (or radiance) is produ
 
 Note: This program “process” the data so that it is compatible with the Sequencer. All data is shifted up so the minimum value is 1.
 
-### Program 2:
+### Program 2:  
 For every rock surface vaporized by ChemCam’s laser, there is another relevant file. This file contains the "Concatenated Multivariant Oxides Composition" (MOC) of the rock, and many other rocks across a range of days (sols). Each file records the amount of SiO2, TiO2, Al2O3, FeOT, MgO, CaO, Na2O, K2O and MnO that each rock is predicted to have as a weighted percentage, and the file follows this naming convention: moc\*.csv. mocCompiler.py is designed to compile the MOC data from every relevant file in the directory given. This program will output the compiled file and one other file which contains a list of numbers: each number corresponding to an oxide in the order they were listed above. The order of the rows in the compiled MOC file is the same order in which the spectral data was taken (using space clock time). 
 
 Note: This program “process” the data so that it is compatible with the Sequencer. All data is shifted up so the minimum value is 1.
+
+### Jupyter Notebooks:
+These notebooks show how to run The Sequencer on the files created by avgRadianceCompiler.py and mocCompiler.py. Both notebooks demonstrate data visualization techniques to visually identify the patterns found by The Sequencer. Please refer to the notebooks for more detailed information on how to run The Sequencer and visualize the data. 
+
 
 ## Requirements
 * Linux OS
@@ -82,30 +86,11 @@ python3 mocCompiler.py spectraMocDataset compiledMoc.csv oxideNumbers.csv
 2) Name for Compiled MOC File: This is the name (or path) to the first file this program will output. This is the compiled Major Oxide Composition (MOC) from all of the files downloaded. Be sure to include ".csv" at the end. 
 3) Name of the Oxide Number's file: This is the name (or path) to the second file this program will output. This is just a small list of numbers each corresponding to a major oxide: SiO2, TiO2, Al2O3, FeOT, MgO, CaO, Na2O, K2O and MnO. Again, be sure to include ".csv" at the end of the file name. 
 
-## Compiling LaTeX Documents
-
-To complete the following steps, you must first insure that [LaTeX](https://www.latex-project.org/) is installed on your computer. Also confirm that you have [latexmk](https://mg.readthedocs.io/latexmk.html) installed to make the presentation.
-
-### The Research Paper
-Please follow these commands:
-```
-cd Paper
-pdflatex MatthewKing_ResearchPaper.tex
-biber MatthewKing_ResearchPaper
-pdflatex MatthewKing_ResearchPaper.tex
-open MatthewKing_ResearchPaper.pdf
-```
-
-### The Slide Show
-Please follow these commands:
-```
-cd Presentation
-latexmk -xelatex MatthewKing_SlideShow.tex
-latexmk -c
-```
 
 ## Conclusion
-Now your compiled files have been created and saved. You can now reference [The Sequencer’s GitHub](https://github.com/dalya/Sequencer) if you want to sequence the data to identify patterns. Note: The Sequencer is most compatible with Linux, and you must downgrade the networkx package to version 2.4 with the below commands (their requirements.txt file is currently inaccurate).
+Now your compiled radiance and moc files have been created and saved! You can now either reference [The Sequencer’s GitHub](https://github.com/dalya/Sequencer) if you want a comprehensive understanding of sequencing data to identify patterns, or you can view the two Jupyter Notebooks in this repository that show how these .csv files can be sequenced and their patterns visualized. 
+
+Note: The Sequencer is most compatible with Linux, and you must downgrade the networkx package to version 2.4 with the below commands (their requirements.txt file is currently inaccurate).
 ```
 pip uninstall networkx
 pip install networkx==2.4
